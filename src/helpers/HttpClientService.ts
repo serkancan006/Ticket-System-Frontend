@@ -1,83 +1,67 @@
-import axios, { Axios, AxiosHeaders, AxiosResponse } from "axios";
+import axios, { AxiosHeaders, AxiosInstance, AxiosResponse } from 'axios'
+import { httpClientErrorInterceptor } from './HttpClientErrorInterceptor'
 
 export class HttpClientService {
   constructor(
     private baseUrl: string | undefined = process.env.BASE_API_URL,
-    private httpClient: Axios = axios.create()
-  ) {}
+    private httpClient: AxiosInstance = axios.create()
+  ) {
+    httpClientErrorInterceptor(this.httpClient)
+  }
 
   private urlBuilder(requestParamaters: Partial<RequestParamaters>): string {
-    return `${
-      requestParamaters.baseUrl ? requestParamaters.baseUrl : this.baseUrl
-    }/${requestParamaters.controller}${
-      requestParamaters.action ? `/${requestParamaters.action}` : ""
-    }`;
+    return `${requestParamaters.baseUrl ? requestParamaters.baseUrl : this.baseUrl}/${requestParamaters.controller}${
+      requestParamaters.action ? `/${requestParamaters.action}` : ''
+    }`
   }
 
-  public Get<T>(
-    requestParamaters: Partial<RequestParamaters>,
-    id?: string
-  ): Promise<AxiosResponse<T>> {
-    let endpoint = "";
-    if (requestParamaters.fullEndPoint)
-      endpoint = requestParamaters.fullEndPoint;
-    else
-      endpoint = `${this.urlBuilder(requestParamaters)}${id ? `/${id}` : ""}`;
+  public Get<T>(requestParamaters: Partial<RequestParamaters>, id?: string): Promise<AxiosResponse<T>> {
+    let endpoint = ''
+    if (requestParamaters.fullEndPoint) endpoint = requestParamaters.fullEndPoint
+    else endpoint = `${this.urlBuilder(requestParamaters)}${id ? `/${id}` : ''}`
 
     return this.httpClient.get<T>(endpoint, {
-      headers: requestParamaters.headers,
-    });
+      headers: requestParamaters.headers
+    })
   }
 
-  public Post<T>(
-    requestParamaters: Partial<RequestParamaters>,
-    body: Partial<T>
-  ): Promise<AxiosResponse<T>> {
-    let endpoint = "";
-    if (requestParamaters.fullEndPoint)
-      endpoint = requestParamaters.fullEndPoint;
-    else endpoint = `${this.urlBuilder(requestParamaters)}`;
+  public Post<T>(requestParamaters: Partial<RequestParamaters>, body: Partial<T>): Promise<AxiosResponse<T>> {
+    let endpoint = ''
+    if (requestParamaters.fullEndPoint) endpoint = requestParamaters.fullEndPoint
+    else endpoint = `${this.urlBuilder(requestParamaters)}`
 
     return this.httpClient.post<T>(endpoint, body, {
-      headers: requestParamaters.headers,
-    });
+      headers: requestParamaters.headers
+    })
   }
 
-  public Put<T>(
-    requestParamaters: Partial<RequestParamaters>,
-    body: Partial<T>
-  ): Promise<AxiosResponse<T>> {
-    let endpoint = "";
-    if (requestParamaters.fullEndPoint)
-      endpoint = requestParamaters.fullEndPoint;
-    else endpoint = `${this.urlBuilder(requestParamaters)}`;
+  public Put<T>(requestParamaters: Partial<RequestParamaters>, body: Partial<T>): Promise<AxiosResponse<T>> {
+    let endpoint = ''
+    if (requestParamaters.fullEndPoint) endpoint = requestParamaters.fullEndPoint
+    else endpoint = `${this.urlBuilder(requestParamaters)}`
 
     return this.httpClient.put<T>(endpoint, body, {
-      headers: requestParamaters.headers,
-    });
+      headers: requestParamaters.headers
+    })
   }
 
-  public Delete<T>(
-    requestParamaters: Partial<RequestParamaters>,
-    id: string
-  ): Promise<AxiosResponse<T>> {
-    let endpoint = "";
-    if (requestParamaters.fullEndPoint)
-      endpoint = requestParamaters.fullEndPoint;
-    else endpoint = `${this.urlBuilder(requestParamaters)}/${id}`;
+  public Delete<T>(requestParamaters: Partial<RequestParamaters>, id: string): Promise<AxiosResponse<T>> {
+    let endpoint = ''
+    if (requestParamaters.fullEndPoint) endpoint = requestParamaters.fullEndPoint
+    else endpoint = `${this.urlBuilder(requestParamaters)}/${id}`
 
     return this.httpClient.delete<T>(endpoint, {
-      headers: requestParamaters.headers,
-    });
+      headers: requestParamaters.headers
+    })
   }
 }
 
 export class RequestParamaters {
-  controller?: string;
-  action?: string;
-  queryString?: string;
+  controller?: string
+  action?: string
+  queryString?: string
 
-  headers?: AxiosHeaders;
-  baseUrl?: string;
-  fullEndPoint?: string;
+  headers?: AxiosHeaders
+  baseUrl?: string
+  fullEndPoint?: string
 }
