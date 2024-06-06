@@ -1,5 +1,5 @@
 import React from 'react'
-import { SendCircleOutline as SendIcon } from 'mdi-material-ui'
+import { SendCircleOutline as SendIcon, Attachment } from 'mdi-material-ui'
 import { Divider, Grid, TextField, Typography, List, ListItem, ListItemText, Fab, ListItemIcon } from '@mui/material'
 
 const Chat = () => {
@@ -87,17 +87,21 @@ const Chat = () => {
           </List>
           <Divider />
           <Grid container style={{ padding: '20px' }}>
-            <Grid item xs={11}>
+            <Grid item xs={10}>
               <TextField id='outlined-basic-email' label='Bir şeyler yazın' fullWidth />
             </Grid>
-            <Grid xs={1} style={{ textAlign: 'right' }}>
-              <Fab color='primary' aria-label='add'>
-                <SendIcon />
-              </Fab>
+            <Grid xs={2} style={{ textAlign: 'right' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '5px' }}>
+                <Fab color='primary' aria-label='add'>
+                  <SendIcon />
+                </Fab>
+                <Fab color='secondary' aria-label='add'>
+                  <Attachment />
+                </Fab>
+              </div>
             </Grid>
           </Grid>
         </Grid>
-        
       </Grid>
     </div>
   )
