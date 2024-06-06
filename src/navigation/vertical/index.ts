@@ -23,27 +23,22 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Account Settings',
       icon: AccountCogOutline,
-      path: '/account-settings'
+      path: '/core/account-settings'
     },
     {
       sectionTitle: 'Pages'
     },
-    {
-      title: 'Login',
-      icon: Login,
-      path: '/pages/login',
-      openInNewTab: true
-    },
+
     {
       title: 'Register',
       icon: AccountPlusOutline,
-      path: '/pages/register',
+      path: '/core/pages/register',
       openInNewTab: true
     },
     {
       title: 'Error',
       icon: AlertCircleOutline,
-      path: '/pages/error',
+      path: '/core/pages/error',
       openInNewTab: true
     },
     {
@@ -52,41 +47,85 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Typography',
       icon: FormatLetterCase,
-      path: '/typography'
+      path: '/core/typography'
     },
     {
       title: 'Icons',
-      path: '/icons',
+      path: '/core/icons',
       icon: GoogleCirclesExtended
     },
     {
       title: 'Cards',
       icon: CreditCardOutline,
-      path: '/cards'
+      path: '/core/cards'
     },
     {
       title: 'Tables',
       icon: Table,
-      path: '/tables'
+      path: '/core/tables'
     },
     {
       icon: CubeOutline,
       title: 'Form Layouts',
-      path: '/form-layouts'
+      path: '/core/form-layouts'
     },
     {
-      sectionTitle: 'Other'
+      sectionTitle: 'Admin'
+    },
+    {
+      icon: CubeOutline,
+      title: 'Ticket',
+      path: '/admin/tickets'
+    },
+    {
+      sectionTitle: 'User'
+    },
+    {
+      title: 'Profilim',
+      icon: CubeOutline,
+      path: '/user/account'
+    },
+    {
+      title: 'Bilet Gönder',
+      icon: CubeOutline,
+      path: '/user/send-ticket'
+    },
+    {
+      title: 'Biletlerim',
+      icon: CubeOutline,
+      path: '/user/tickets'
+    },
+    {
+      title: 'Bilet Chat',
+      icon: CubeOutline,
+      path: '/user/ticket-messages'
+    },
+    {
+      sectionTitle: 'UI'
+    },
+    {
+      title: 'Login',
+      icon: Login,
+      path: '/login'
     },
     {
       icon: CubeOutline,
       title: 'Send Ticket',
-      path: '/home'
+      path: '/send-ticket'
+    },
+    {
+      icon: CubeOutline,
+      title: 'Faq',
+      path: '/faq'
+    },
+    {
+      sectionTitle: 'Test'
     },
     {
       icon: CubeOutline,
       title: 'Test',
       path: '/test'
-    },
+    }
   ]
 }
 

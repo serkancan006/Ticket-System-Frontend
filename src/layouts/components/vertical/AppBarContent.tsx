@@ -17,6 +17,7 @@ import { Settings } from 'src/@core/context/settingsContext'
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
+import AppBarDropDown from 'src/components/Layout/AppBarDropDown'
 
 interface Props {
   hidden: boolean
@@ -45,6 +46,7 @@ const AppBarContent = (props: Props) => {
           </IconButton>
         ) : null}
         <TextField
+          placeholder='Ara'
           size='small'
           sx={{ '& .MuiOutlinedInput-root': { borderRadius: 4 } }}
           InputProps={{
@@ -72,6 +74,7 @@ const AppBarContent = (props: Props) => {
             />
           </Box>
         )} */}
+        <AppBarDropDown />
         <ModeToggler settings={settings} saveSettings={saveSettings} />
         <NotificationDropdown />
         <UserDropdown />

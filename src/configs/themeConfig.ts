@@ -22,7 +22,7 @@ const themeConfig: ThemeConfig = {
   contentWidth: 'boxed' /* full | boxed */,
 
   // ** Routing Configs
-  routingLoader: false /* true | false */,
+  routingLoader: true /* true | false */,
 
   // ** Navigation (Menu) Configs
   menuTextTruncate: true /* true | false */,

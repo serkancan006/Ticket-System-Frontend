@@ -1,9 +1,8 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, ReactNode, useState } from 'react'
+import { MouseEvent, ReactNode, useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 // ** MUI Components
 import Box from '@mui/material/Box'
@@ -11,12 +10,10 @@ import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
-import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
 import { styled, useTheme } from '@mui/material/styles'
 import MuiCard, { CardProps } from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -39,10 +36,9 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
-interface State {
-  password: string
-  showPassword: boolean
-}
+// Formik
+import { useFormik } from 'formik'
+import { ForgotPasswordSchema } from 'src/schema/ForgotPasswordSchema'
 
 // ** Styled Components
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
@@ -55,30 +51,30 @@ const LinkStyled = styled('a')(({ theme }) => ({
   color: theme.palette.primary.main
 }))
 
-const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ theme }) => ({
-  '& .MuiFormControlLabel-label': {
-    fontSize: '0.875rem',
-    color: theme.palette.text.secondary
-  }
-}))
-
-const LoginPage = () => {
+const FortgotPassword = () => {
   // ** State
-  const [values, setValues] = useState<State>({
-    password: '',
-    showPassword: false
-  })
+  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
+
+  const onSubmit = (values, actions) => {
+    alert(JSON.stringify(values, null, 2))
+    actions.resetForm()
+  }
 
   // ** Hook
   const theme = useTheme()
-  const router = useRouter()
-
-  const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
+  const formik = useFormik({
+    initialValues: { email: '', password: '', confirmPassword: '' },
+    onSubmit,
+    validationSchema: ForgotPasswordSchema
+  })
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
+    setShowPassword(!showPassword)
+  }
+
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword)
   }
 
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
@@ -164,62 +160,99 @@ const LoginPage = () => {
           </Box>
           <Box sx={{ mb: 6 }}>
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
-              Welcome to {themeConfig.templateName}! 👋🏻
+              Şifremi Unuttum!
             </Typography>
-            <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
+            <Typography variant='body2'>Lütfen E-mail adresinizi ve yeni şifrenizi giriniz.</Typography>
           </Box>
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} />
+          <form noValidate autoComplete='off' onSubmit={formik.handleSubmit}>
+            <TextField
+              error={formik.touched && formik.errors.email ? true : false}
+              onBlur={formik.handleBlur}
+              helperText={(formik.touched && formik.errors.email) ?? ''}
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              autoFocus
+              fullWidth
+              id='email'
+              label='Email'
+              sx={{ marginBottom: 4 }}
+            />
             <FormControl fullWidth>
-              <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
-              <OutlinedInput
-                label='Password'
-                value={values.password}
-                id='auth-login-password'
-                onChange={handleChange('password')}
-                type={values.showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      edge='end'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      aria-label='toggle password visibility'
-                    >
-                      {values.showPassword ? <EyeOutline /> : <EyeOffOutline />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+              <TextField
+                error={formik.touched && formik.errors.password ? true : false}
+                onBlur={formik.handleBlur}
+                helperText={(formik.touched && formik.errors.password) ?? ''}
+                onChange={formik.handleChange}
+                value={formik.values.password}
+                label='Şifre'
+                sx={{ marginBottom: 4 }}
+                id='password'
+                type={showPassword ? 'text' : 'password'}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        edge='end'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        aria-label='toggle password visibility'
+                      >
+                        {showPassword ? <EyeOutline /> : <EyeOffOutline />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </FormControl>
+            <FormControl fullWidth>
+              <TextField
+                error={formik.touched && formik.errors.confirmPassword ? true : false}
+                onBlur={formik.handleBlur}
+                helperText={(formik.touched && formik.errors.confirmPassword) ?? ''}
+                onChange={formik.handleChange}
+                value={formik.values.confirmPassword}
+                label='Şifre Tekrar'
+                id='confirmPassword'
+                type={showConfirmPassword ? 'text' : 'password'}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        edge='end'
+                        onClick={handleClickShowConfirmPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        aria-label='toggle confirmPassword visibility'
+                      >
+                        {showConfirmPassword ? <EyeOutline /> : <EyeOffOutline />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
             </FormControl>
             <Box
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
-              <FormControlLabel control={<Checkbox />} label='Remember Me' />
-              <Link passHref href='/'>
-                <LinkStyled onClick={e => e.preventDefault()}>Forgot Password?</LinkStyled>
+              <br />
+              {/* <FormControlLabel control={<Checkbox />} label='Beni hatırla' /> */}
+              <Link passHref href='/login'>
+                <LinkStyled>Giriş yap</LinkStyled>
               </Link>
             </Box>
-            <Button
-              fullWidth
-              size='large'
-              variant='contained'
-              sx={{ marginBottom: 7 }}
-              onClick={() => router.push('/')}
-            >
-              Login
+            <Button fullWidth size='large' variant='contained' sx={{ marginBottom: 7 }} type='submit'>
+              Gönder
             </Button>
-            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {/* <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
               <Typography variant='body2' sx={{ marginRight: 2 }}>
-                New on our platform?
+                Platformumuzda yeni misiniz?
               </Typography>
               <Typography variant='body2'>
                 <Link passHref href='/pages/register'>
-                  <LinkStyled>Create an account</LinkStyled>
+                  <LinkStyled>Bir hesap oluşturun!</LinkStyled>
                 </Link>
               </Typography>
             </Box>
-            <Divider sx={{ my: 5 }}>or</Divider>
+            <Divider sx={{ my: 5 }}>yada</Divider>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Link href='/' passHref>
                 <IconButton component='a' onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}>
@@ -243,7 +276,7 @@ const LoginPage = () => {
                   <Google sx={{ color: '#db4437' }} />
                 </IconButton>
               </Link>
-            </Box>
+            </Box> */}
           </form>
         </CardContent>
       </Card>
@@ -252,6 +285,6 @@ const LoginPage = () => {
   )
 }
 
-LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
+FortgotPassword.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-export default LoginPage
+export default FortgotPassword

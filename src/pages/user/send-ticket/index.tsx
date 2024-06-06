@@ -16,7 +16,7 @@ import CardContent from '@mui/material/CardContent'
 import { FileAccount, TrashCan } from 'mdi-material-ui'
 import { MuiFileInput } from 'mui-file-input'
 
-const SendTicket = () => {
+const UserSendTicket = () => {
   const [files, setFiles] = useState<File[]>([])
 
   const handleChangeFile = (newFiles: File[]) => {
@@ -30,7 +30,7 @@ const SendTicket = () => {
       <CardContent>
         <form onSubmit={e => e.preventDefault()} encType='multipart/form-data'>
           <Grid container spacing={5}>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 fullWidth
                 type='email'
@@ -38,7 +38,7 @@ const SendTicket = () => {
 
                 // helperText='You can use letters, numbers & periods'
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField fullWidth label='Konu' />
             </Grid>
@@ -100,4 +100,4 @@ const SendTicket = () => {
   )
 }
 
-export default SendTicket
+export default UserSendTicket
