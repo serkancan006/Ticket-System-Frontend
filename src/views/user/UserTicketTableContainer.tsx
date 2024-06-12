@@ -84,7 +84,7 @@ const statusObj: StatusObj = {
   beklemede: { color: 'primary' }
 }
 
-const UserTicketTable = () => {
+const UserTicketTableContainer = () => {
   return (
     <Card>
       <TableContainer>
@@ -136,4 +136,4 @@ const UserTicketTable = () => {
   )
 }
 
-export default UserTicketTable
+export default UserTicketTableContainer

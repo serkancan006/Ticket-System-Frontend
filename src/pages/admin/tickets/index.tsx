@@ -6,9 +6,7 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 
 // ** Demo Components Imports
-import TicketListTable from 'src/components/TicketListTable'
-
-
+import AdminTicketListTableContainer from 'src/views/admin/AdminTicketListTableContainer'
 
 const TicketList = () => {
   return (
@@ -19,12 +17,14 @@ const TicketList = () => {
             Biletler
           </Link>
         </Typography>
-        <Typography variant='body2'>Aşağıdaki biletler tablosundan bütün biletleri görebilir ve işlemlerinizi gerçekleştirebilirsiniz</Typography>
+        <Typography variant='body2'>
+          Aşağıdaki biletler tablosundan bütün biletleri görebilir ve işlemlerinizi gerçekleştirebilirsiniz
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <Card>
           <CardHeader title='Biletler Tablosu' titleTypographyProps={{ variant: 'h6' }} />
-          <TicketListTable />
+          <AdminTicketListTableContainer />
         </Card>
       </Grid>
     </Grid>

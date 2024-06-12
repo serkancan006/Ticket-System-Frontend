@@ -1,9 +1,9 @@
-import Faq from 'src/components/Faq'
+import FaqContainer from 'src/views/FaqContainer'
 
-export default function FAQ() {
+export default function FAQPage() {
   return (
     <>
-      <Faq />
+      <FaqContainer />
     </>
   )
 }

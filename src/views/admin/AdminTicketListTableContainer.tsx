@@ -73,7 +73,7 @@ const rows = [
   createData(5, 'UI çalışmıyor', '1 Nisan', 'Yeni', '8')
 ]
 
-const TicketListTable = () => {
+const AdminTicketListTableContainer = () => {
   const router = useRouter()
 
   // ** States
@@ -171,4 +171,4 @@ const TicketListTable = () => {
   )
 }
 
-export default TicketListTable
+export default AdminTicketListTableContainer

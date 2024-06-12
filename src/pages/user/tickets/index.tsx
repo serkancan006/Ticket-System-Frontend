@@ -1,12 +1,12 @@
 import React from 'react'
-import UserTicketTable from 'src/components/user/userTicketTable/UserTicketTable'
+import UserTicketTableContainer from 'src/views/user/UserTicketTableContainer'
 
-const UserTickets = () => {
+const UserTicketsPage = () => {
   return (
     <>
-      <UserTicketTable />
+      <UserTicketTableContainer />
     </>
   )
 }
 
-export default UserTickets
+export default UserTicketsPage

@@ -9,12 +9,83 @@ import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
 import AccountPlusOutline from 'mdi-material-ui/AccountPlusOutline'
 import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
+import { Account, Ticket, TicketOutline, AccountEdit, Help, Send, Chat, SendOutline } from 'mdi-material-ui'
 
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
 
 const navigation = (): VerticalNavItemsType => {
   return [
+    {
+      sectionTitle: 'Admin'
+    },
+    {
+      icon: Account,
+      title: 'Profilim',
+      path: '/admin/profile'
+    },
+    {
+      icon: Ticket,
+      title: 'Ticket',
+      path: '/admin/tickets'
+    },
+    {
+      icon: AccountEdit,
+      title: 'Kullanıcılar',
+      path: '/admin/user-list'
+    },
+    {
+      sectionTitle: 'User'
+    },
+    {
+      title: 'Profilim',
+      icon: Account,
+      path: '/user/profile'
+    },
+    {
+      title: 'Bilet Gönder',
+      icon: SendOutline,
+      path: '/user/send-ticket'
+    },
+    {
+      title: 'Biletlerim',
+      icon: TicketOutline,
+      path: '/user/tickets'
+    },
+    {
+      title: 'Bilet Chat',
+      icon: Chat,
+      path: '/user/ticket-chat'
+    },
+    {
+      sectionTitle: 'UI'
+    },
+    {
+      title: 'Login',
+      icon: Login,
+      path: '/login'
+    },
+    {
+      icon: Send,
+      title: 'Send Ticket',
+      path: '/send-ticket'
+    },
+    {
+      icon: Help,
+      title: 'Faq',
+      path: '/faq'
+    },
+    {
+      sectionTitle: 'Test'
+    },
+    {
+      icon: CubeOutline,
+      title: 'Test',
+      path: '/test'
+    },
+    {
+      sectionTitle: 'Tema'
+    },
     {
       title: 'Dashboard',
       icon: HomeOutline,
@@ -28,7 +99,6 @@ const navigation = (): VerticalNavItemsType => {
     {
       sectionTitle: 'Pages'
     },
-
     {
       title: 'Register',
       icon: AccountPlusOutline,
@@ -68,63 +138,6 @@ const navigation = (): VerticalNavItemsType => {
       icon: CubeOutline,
       title: 'Form Layouts',
       path: '/core/form-layouts'
-    },
-    {
-      sectionTitle: 'Admin'
-    },
-    {
-      icon: CubeOutline,
-      title: 'Ticket',
-      path: '/admin/tickets'
-    },
-    {
-      sectionTitle: 'User'
-    },
-    {
-      title: 'Profilim',
-      icon: CubeOutline,
-      path: '/user/account'
-    },
-    {
-      title: 'Bilet Gönder',
-      icon: CubeOutline,
-      path: '/user/send-ticket'
-    },
-    {
-      title: 'Biletlerim',
-      icon: CubeOutline,
-      path: '/user/tickets'
-    },
-    {
-      title: 'Bilet Chat',
-      icon: CubeOutline,
-      path: '/user/ticket-messages'
-    },
-    {
-      sectionTitle: 'UI'
-    },
-    {
-      title: 'Login',
-      icon: Login,
-      path: '/login'
-    },
-    {
-      icon: CubeOutline,
-      title: 'Send Ticket',
-      path: '/send-ticket'
-    },
-    {
-      icon: CubeOutline,
-      title: 'Faq',
-      path: '/faq'
-    },
-    {
-      sectionTitle: 'Test'
-    },
-    {
-      icon: CubeOutline,
-      title: 'Test',
-      path: '/test'
     }
   ]
 }

@@ -13,13 +13,13 @@ import MuiTab, { TabProps } from '@mui/material/Tab'
 // ** Icons Imports
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
-import InformationOutline from 'mdi-material-ui/InformationOutline'
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
-import UserTabAccount from './tabaccount/UserTabAccount'
-import UserTabSecurity from './tabsecurity/UserTabSecurity'
-import UserTabInfo from './tabinfo/UserTabInfo'
+
+// **
+import UserTabAccount from '../../components/profileContainer/UserTabAccount'
+import UserTabSecurity from '../../components/profileContainer/UserTabSecurity'
 
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -39,7 +39,7 @@ const TabName = styled('span')(({ theme }) => ({
   }
 }))
 
-const UserAccountSettings = () => {
+const ProfileContainer = () => {
   // ** State
   const [value, setValue] = useState<string>('account')
 
@@ -73,15 +73,6 @@ const UserAccountSettings = () => {
               </Box>
             }
           />
-          {/* <Tab
-            value='info'
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <InformationOutline />
-                <TabName>Info</TabName>
-              </Box>
-            }
-          /> */}
         </TabList>
 
         <TabPanel sx={{ p: 0 }} value='account'>
@@ -90,12 +81,9 @@ const UserAccountSettings = () => {
         <TabPanel sx={{ p: 0 }} value='security'>
           <UserTabSecurity />
         </TabPanel>
-        {/* <TabPanel sx={{ p: 0 }} value='info'>
-          <UserTabInfo />
-        </TabPanel> */}
       </TabContext>
     </Card>
   )
 }
 
-export default UserAccountSettings
+export default ProfileContainer

@@ -30,6 +30,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 // ** Global css styles
 import '../../styles/globals.css'
 import NotistackService from 'src/services/NotiStackService'
+import { DialogProvider } from 'src/context/DialogProvider'
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
@@ -62,23 +63,22 @@ const App = (props: ExtendedAppProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
-        <meta
-          name='description'
-          content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
-        />
-        <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
+        <title>{`${themeConfig.templateName}`}</title>
+        <meta name='description' content={`${themeConfig.templateName} `} />
+        <meta name='keywords' content=' ' />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
 
       <SettingsProvider>
-        <NotistackService>
-          <SettingsConsumer>
-            {({ settings }) => {
-              return <ThemeComponent settings={settings}>{getLayout(<Component {...pageProps} />)}</ThemeComponent>
-            }}
-          </SettingsConsumer>
-        </NotistackService>
+        <DialogProvider>
+          <NotistackService>
+            <SettingsConsumer>
+              {({ settings }) => {
+                return <ThemeComponent settings={settings}>{getLayout(<Component {...pageProps} />)}</ThemeComponent>
+              }}
+            </SettingsConsumer>
+          </NotistackService>
+        </DialogProvider>
       </SettingsProvider>
     </CacheProvider>
   )

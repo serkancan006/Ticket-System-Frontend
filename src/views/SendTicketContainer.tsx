@@ -13,17 +13,17 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
 //import { MuiFileInput } from "mui-file-input";
-import { FileAccount, TrashCan } from 'mdi-material-ui'
+import { FileAccount } from 'mdi-material-ui'
 import { MuiFileInput } from 'mui-file-input'
 
-const SendTicket = () => {
+const SendTicketContainer = () => {
   const [files, setFiles] = useState<File[]>([])
 
   const handleChangeFile = (newFiles: File[]) => {
-    console.log(newFiles)
+    //console.log(newFiles)
     setFiles(newFiles)
   }
-
+  
   return (
     <Card>
       <CardHeader title='Bir Bilet Gönder' titleTypographyProps={{ variant: 'h6' }} />
@@ -100,4 +100,4 @@ const SendTicket = () => {
   )
 }
 
-export default SendTicket
+export default SendTicketContainer

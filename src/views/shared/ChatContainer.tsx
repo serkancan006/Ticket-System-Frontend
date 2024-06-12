@@ -1,10 +1,46 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { SendCircleOutline as SendIcon, Attachment } from 'mdi-material-ui'
-import { Divider, Grid, TextField, Typography, List, ListItem, ListItemText, Fab, ListItemIcon } from '@mui/material'
+import {
+  Divider,
+  Grid,
+  TextField,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Fab,
+  ListItemIcon,
+  Card
+} from '@mui/material'
+import { grey, blue } from '@mui/material/colors'
 
-const Chat = () => {
+const message1 = [
+  { message: "Hey man, What's up", role: 'admin', name: 'buğra', time: '09:30' },
+  { message: 'Hey, Ian Good! What about you?', role: 'user', name: 'user', time: '09:31' },
+  { message: "Cool. i am good, let's catch up!", role: 'admin', name: 'buğra', time: '10:30' }
+]
+
+const message2 = [
+  { message: 'Selam nasılsın?', role: 'admin', name: 'buğra', time: '10:30' },
+  { message: 'iyi, sen nasılsın?', role: 'user', name: 'user', time: '10:31' },
+  { message: 'Bende iyiyim bugün maça geliyor musun?', role: 'admin', name: 'buğra', time: '11:30' }
+]
+
+const message3 = [
+  { message: 'blablablablabla', role: 'admin', name: 'buğra', time: '12:30' },
+  { message: 'adadadadadadadadada', role: 'user', name: 'user', time: '12:31' },
+  { message: 'hohohohohohohoh', role: 'admin', name: 'buğra', time: '13:30' }
+]
+
+const TicketChatContainer = () => {
+  const [messages, setMessages] = useState([])
+
+  useEffect(() => {
+    setMessages(message1)
+  }, [])
+
   return (
-    <div>
+    <Card>
       <Grid container>
         <Grid item xs={12}>
           <Typography variant='h5' className='header-message'>
@@ -34,17 +70,17 @@ const Chat = () => {
           </Grid>
           <Divider />
           <List>
-            <ListItem button key='FaturaKesme'>
+            <ListItem button key='FaturaKesme' onClick={() => setMessages(message1)}>
               <ListItemIcon></ListItemIcon>
               <ListItemText primary='Fatura Kesme'>Fatura Kesme</ListItemText>
               <ListItemText secondary='8569-8569'></ListItemText>
             </ListItem>
-            <ListItem button key='FaturaListeleme'>
+            <ListItem button key='FaturaListeleme' onClick={() => setMessages(message2)}>
               <ListItemIcon></ListItemIcon>
               <ListItemText primary='Fatura Listeleme'>Fatura Listeleme</ListItemText>
               <ListItemText secondary='2354-6578'></ListItemText>
             </ListItem>
-            <ListItem button key='Yetkilendirme'>
+            <ListItem button key='Yetkilendirme' onClick={() => setMessages(message3)}>
               <ListItemIcon></ListItemIcon>
               <ListItemText primary='Yetkilendirme'>Yetkilendirme</ListItemText>
               <ListItemText secondary='8789-5098'></ListItemText>
@@ -54,36 +90,32 @@ const Chat = () => {
 
         <Grid item xs={9}>
           <List style={{ height: '70vh', overflowY: 'auto' }}>
-            <ListItem key='1'>
-              <Grid container>
-                <Grid item xs={12}>
-                  <ListItemText style={{ textAlign: 'right' }} primary="Hey man, What's up ?"></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItemText style={{ textAlign: 'right' }} secondary='09:30'></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
-            <ListItem key='2'>
-              <Grid container>
-                <Grid item xs={12} style={{ textAlign: 'left' }}>
-                  <ListItemText primary='Hey, Iam Good! What about you ?'></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItemText secondary='09:31'></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
-            <ListItem key='3'>
-              <Grid container>
-                <Grid item xs={12} style={{ textAlign: 'right' }}>
-                  <ListItemText primary="Cool. i am good, let's catch up!"></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItemText style={{ textAlign: 'right' }} secondary='10:30'></ListItemText>
-                </Grid>
-              </Grid>
-            </ListItem>
+            {messages.map((message, index) => (
+              <ListItem
+                key={index}
+                style={{
+                  justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start'
+                }}
+              >
+                <div
+                  style={{
+                    backgroundColor: message.role === 'user' ? blue[200] : grey[300],
+                    borderRadius: '20px',
+                    padding: '6px',
+                    maxWidth: '60%'
+                  }}
+                >
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <ListItemText primary={message.message} style={{ textAlign: 'center' }} />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <ListItemText secondary={message.time} style={{ textAlign: 'right' }} />
+                    </Grid>
+                  </Grid>
+                </div>
+              </ListItem>
+            ))}
           </List>
           <Divider />
           <Grid container style={{ padding: '20px' }}>
@@ -103,8 +135,8 @@ const Chat = () => {
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </Card>
   )
 }
 
-export default Chat
+export default TicketChatContainer

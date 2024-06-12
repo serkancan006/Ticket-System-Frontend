@@ -14,13 +14,13 @@ import CardStatisticsVerticalComponent from 'src/@core/components/card-statistic
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 // ** Demo Components Imports
-import Table from 'src/views/dashboard/Table'
-import Trophy from 'src/views/dashboard/Trophy'
-import TotalEarning from 'src/views/dashboard/TotalEarning'
-import StatisticsCard from 'src/views/dashboard/StatisticsCard'
-import WeeklyOverview from 'src/views/dashboard/WeeklyOverview'
-import DepositWithdraw from 'src/views/dashboard/DepositWithdraw'
-import SalesByCountries from 'src/views/dashboard/SalesByCountries'
+import Table from 'src/@core/views/dashboard/Table'
+import Trophy from 'src/@core/views/dashboard/Trophy'
+import TotalEarning from 'src/@core/views/dashboard/TotalEarning'
+import StatisticsCard from 'src/@core/views/dashboard/StatisticsCard'
+import WeeklyOverview from 'src/@core/views/dashboard/WeeklyOverview'
+import DepositWithdraw from 'src/@core/views/dashboard/DepositWithdraw'
+import SalesByCountries from 'src/@core/views/dashboard/SalesByCountries'
 
 const Dashboard = () => {
   return (

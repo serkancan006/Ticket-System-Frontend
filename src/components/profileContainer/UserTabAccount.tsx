@@ -1,26 +1,19 @@
 // ** React Imports
-import { useState, ElementType, ChangeEvent, SyntheticEvent, forwardRef } from 'react'
+import { useState, ElementType, ChangeEvent, forwardRef } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import Link from '@mui/material/Link'
-import Alert from '@mui/material/Alert'
 import Select from '@mui/material/Select'
 import { styled } from '@mui/material/styles'
 import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import InputLabel from '@mui/material/InputLabel'
-import AlertTitle from '@mui/material/AlertTitle'
-import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import Button, { ButtonProps } from '@mui/material/Button'
-import { FormControlLabel, FormLabel, OutlinedInput, Radio, RadioGroup } from '@mui/material'
-
-// ** Icons Imports
-import Close from 'mdi-material-ui/Close'
+import { FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 
 // ** Third Party Imports
 import DatePicker from 'react-datepicker'
@@ -58,7 +51,6 @@ const CustomInput = forwardRef((props, ref) => {
 
 const UserTabAccount = () => {
   // ** State
-  const [openAlert, setOpenAlert] = useState<boolean>(true)
   const [imgSrc, setImgSrc] = useState<string>('/images/avatars/1.png')
   const [date, setDate] = useState<Date | null | undefined>(null)
 
@@ -99,7 +91,6 @@ const UserTabAccount = () => {
               </Box>
             </Box>
           </Grid>
-
           <Grid item xs={12} sm={6}>
             <TextField fullWidth label='Ad' />
           </Grid>
@@ -134,14 +125,6 @@ const UserTabAccount = () => {
           <Grid item xs={12} sm={6}>
             <TextField fullWidth type='number' label='Phone' placeholder='(123) 456-7890' />
           </Grid>
-          {/* <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label='Website'
-              placeholder='https://example.com/'
-              defaultValue='https://themeselection.com/'
-            />
-          </Grid> */}
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel>Country</InputLabel>
@@ -154,26 +137,6 @@ const UserTabAccount = () => {
               </Select>
             </FormControl>
           </Grid>
-          {/* <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel id='form-layouts-separator-multiple-select-label'>Languages</InputLabel>
-              <Select
-                multiple
-                defaultValue={['English']}
-                id='account-settings-multiple-select'
-                labelId='account-settings-multiple-select-label'
-                input={<OutlinedInput label='Languages' id='select-multiple-language' />}
-              >
-                <MenuItem value='English'>English</MenuItem>
-                <MenuItem value='French'>French</MenuItem>
-                <MenuItem value='Spanish'>Spanish</MenuItem>
-                <MenuItem value='Portuguese'>Portuguese</MenuItem>
-                <MenuItem value='Italian'>Italian</MenuItem>
-                <MenuItem value='German'>German</MenuItem>
-                <MenuItem value='Arabic'>Arabic</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid> */}
           <Grid item xs={12} sm={6}>
             <FormControl>
               <FormLabel sx={{ fontSize: '0.875rem' }}>Gender</FormLabel>
@@ -184,52 +147,6 @@ const UserTabAccount = () => {
               </RadioGroup>
             </FormControl>
           </Grid>
-
-          {/* <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>Role</InputLabel>
-              <Select label='Role' defaultValue='admin'>
-                <MenuItem value='admin'>Admin</MenuItem>
-                <MenuItem value='author'>Author</MenuItem>
-                <MenuItem value='editor'>Editor</MenuItem>
-                <MenuItem value='maintainer'>Maintainer</MenuItem>
-                <MenuItem value='subscriber'>Subscriber</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid> */}
-          {/* <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>Status</InputLabel>
-              <Select label='Status' defaultValue='active'>
-                <MenuItem value='active'>Active</MenuItem>
-                <MenuItem value='inactive'>Inactive</MenuItem>
-                <MenuItem value='pending'>Pending</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid> */}
-          {/* <Grid item xs={12} sm={6}>
-            <TextField fullWidth label='Company' placeholder='ABC Pvt. Ltd.' defaultValue='ABC Pvt. Ltd.' />
-          </Grid> */}
-
-          {/* {openAlert ? (
-            <Grid item xs={12} sx={{ mb: 3 }}>
-              <Alert
-                severity='warning'
-                sx={{ '& a': { fontWeight: 400 } }}
-                action={
-                  <IconButton size='small' color='inherit' aria-label='close' onClick={() => setOpenAlert(false)}>
-                    <Close fontSize='inherit' />
-                  </IconButton>
-                }
-              >
-                <AlertTitle>Your email is not confirmed. Please check your inbox.</AlertTitle>
-                <Link href='/' onClick={(e: SyntheticEvent) => e.preventDefault()}>
-                  Resend Confirmation
-                </Link>
-              </Alert>
-            </Grid>
-          ) : null} */}
-
           <Grid item xs={12}>
             <Button variant='contained' sx={{ marginRight: 3.5 }}>
               Kaydet
