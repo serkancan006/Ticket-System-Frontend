@@ -25,7 +25,7 @@ interface State {
   showConfirmNewPassword: boolean
 }
 
-const UserTabSecurity = () => {
+const ProfileSecurity = () => {
   // ** States
   const [values, setValues] = useState<State>({
     newPassword: '',
@@ -177,4 +177,4 @@ const UserTabSecurity = () => {
     </form>
   )
 }
-export default UserTabSecurity
+export default ProfileSecurity

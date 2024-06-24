@@ -44,19 +44,22 @@ const LoginContainer = () => {
   // ** State
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
-  const onSubmit = (values, actions) => {
+  // ** Hook
+  const theme = useTheme()
+
+  // ** Formik
+  const onSubmit = (values: any, actions: any) => {
     alert(JSON.stringify(values, null, 2))
     actions.resetForm()
   }
 
-  // ** Hook
-  const theme = useTheme()
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     onSubmit,
     validationSchema: LoginSchema
   })
 
+  // ** Functions
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
   }

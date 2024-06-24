@@ -18,8 +18,8 @@ import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
 import 'react-datepicker/dist/react-datepicker.css'
 
 // **
-import UserTabAccount from '../../components/profileContainer/UserTabAccount'
-import UserTabSecurity from '../../components/profileContainer/UserTabSecurity'
+import ProfileAccount from '../../components/profileContainer/ProfileAccount'
+import ProfileSecurity from '../../components/profileContainer/ProfileSecurity'
 
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -76,10 +76,10 @@ const ProfileContainer = () => {
         </TabList>
 
         <TabPanel sx={{ p: 0 }} value='account'>
-          <UserTabAccount />
+          <ProfileAccount />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='security'>
-          <UserTabSecurity />
+          <ProfileSecurity />
         </TabPanel>
       </TabContext>
     </Card>

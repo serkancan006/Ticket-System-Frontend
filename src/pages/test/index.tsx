@@ -1,14 +1,15 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import { showNotifyStack } from 'src/services/NotiStackService'
-import { HttpClientService } from 'src/helpers/HttpClientService'
+import HttpClientService from 'src/helpers/HttpClientService'
 
 const TestPage = () => {
-  const client = new HttpClientService()
-
   React.useEffect(() => {
     // https://jsonplaceholder.org/posts
-    client.Get({ fullEndPoint: 'https://jsonplaceholder.org/posts' })
+
+    HttpClientService.get({ fullEndPoint: 'https://jsonplaceholder.org/postss' })
+      .then(response => console.log(response.data))
+      .catch(error => console.error('hata: ', error))
   })
 
   return (

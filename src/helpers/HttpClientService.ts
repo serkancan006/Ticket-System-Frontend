@@ -1,67 +1,73 @@
 import axios, { AxiosHeaders, AxiosInstance, AxiosResponse } from 'axios'
 import { httpClientErrorInterceptor } from './HttpClientErrorInterceptor'
 
-export class HttpClientService {
-  constructor(
-    private baseUrl: string | undefined = process.env.BASE_API_URL,
-    private httpClient: AxiosInstance = axios.create()
-  ) {
-    httpClientErrorInterceptor(this.httpClient)
-  }
+const httpClient: AxiosInstance = axios.create()
+httpClientErrorInterceptor(httpClient)
 
-  private urlBuilder(requestParamaters: Partial<RequestParamaters>): string {
-    return `${requestParamaters.baseUrl ? requestParamaters.baseUrl : this.baseUrl}/${requestParamaters.controller}${
-      requestParamaters.action ? `/${requestParamaters.action}` : ''
-    }`
-  }
-
-  public Get<T>(requestParamaters: Partial<RequestParamaters>, id?: string): Promise<AxiosResponse<T>> {
-    let endpoint = ''
-    if (requestParamaters.fullEndPoint) endpoint = requestParamaters.fullEndPoint
-    else endpoint = `${this.urlBuilder(requestParamaters)}${id ? `/${id}` : ''}`
-
-    return this.httpClient.get<T>(endpoint, {
-      headers: requestParamaters.headers
-    })
-  }
-
-  public Post<T>(requestParamaters: Partial<RequestParamaters>, body: Partial<T>): Promise<AxiosResponse<T>> {
-    let endpoint = ''
-    if (requestParamaters.fullEndPoint) endpoint = requestParamaters.fullEndPoint
-    else endpoint = `${this.urlBuilder(requestParamaters)}`
-
-    return this.httpClient.post<T>(endpoint, body, {
-      headers: requestParamaters.headers
-    })
-  }
-
-  public Put<T>(requestParamaters: Partial<RequestParamaters>, body: Partial<T>): Promise<AxiosResponse<T>> {
-    let endpoint = ''
-    if (requestParamaters.fullEndPoint) endpoint = requestParamaters.fullEndPoint
-    else endpoint = `${this.urlBuilder(requestParamaters)}`
-
-    return this.httpClient.put<T>(endpoint, body, {
-      headers: requestParamaters.headers
-    })
-  }
-
-  public Delete<T>(requestParamaters: Partial<RequestParamaters>, id: string): Promise<AxiosResponse<T>> {
-    let endpoint = ''
-    if (requestParamaters.fullEndPoint) endpoint = requestParamaters.fullEndPoint
-    else endpoint = `${this.urlBuilder(requestParamaters)}/${id}`
-
-    return this.httpClient.delete<T>(endpoint, {
-      headers: requestParamaters.headers
-    })
-  }
+const urlBuilder = (requestParamaters: Partial<RequestParameters>): string => {
+  return `${requestParamaters.fullEndPoint ?? process.env.BASE_API_URL}${
+    requestParamaters.urlParameters ? `/${requestParamaters.urlParameters}` : ''
+  }`
 }
 
-export class RequestParamaters {
-  controller?: string
-  action?: string
-  queryString?: string
+const get = <T>(requestParameters: Partial<RequestParameters>): Promise<AxiosResponse<T>> => {
+  const url = urlBuilder(requestParameters)
 
+  return httpClient.get<T>(url, {
+    headers: requestParameters.headers
+  })
+}
+
+const post = <T>(requestParameters: Partial<RequestParameters>, body: Partial<T>): Promise<AxiosResponse<T>> => {
+  const url = urlBuilder(requestParameters)
+
+  return httpClient.post<T>(url, body, {
+    headers: requestParameters.headers
+  })
+}
+
+const postMultipart = <T>(
+  requestParameters: Partial<RequestParameters>,
+  formData: FormData
+): Promise<AxiosResponse<T>> => {
+  const url = urlBuilder(requestParameters)
+
+  return httpClient.post<T>(url, formData, {
+    headers: {
+      ...requestParameters.headers,
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+
+const put = <T>(requestParameters: Partial<RequestParameters>, body: Partial<T>): Promise<AxiosResponse<T>> => {
+  const url = urlBuilder(requestParameters)
+
+  return httpClient.put<T>(url, body, {
+    headers: requestParameters.headers
+  })
+}
+
+const del = <T>(requestParameters: Partial<RequestParameters>): Promise<AxiosResponse<T>> => {
+  const url = urlBuilder(requestParameters)
+
+  return httpClient.delete<T>(url, {
+    headers: requestParameters.headers
+  })
+}
+
+export class RequestParameters {
   headers?: AxiosHeaders
-  baseUrl?: string
   fullEndPoint?: string
+  urlParameters?: string
 }
+
+const HttpClientService = {
+  get,
+  post,
+  postMultipart,
+  put,
+  delete: del,
+}
+
+export default HttpClientService

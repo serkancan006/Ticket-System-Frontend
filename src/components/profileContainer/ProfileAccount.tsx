@@ -49,7 +49,7 @@ const CustomInput = forwardRef((props, ref) => {
   return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
 })
 
-const UserTabAccount = () => {
+const ProfileAccount = () => {
   // ** State
   const [imgSrc, setImgSrc] = useState<string>('/images/avatars/1.png')
   const [date, setDate] = useState<Date | null | undefined>(null)
@@ -161,4 +161,4 @@ const UserTabAccount = () => {
   )
 }
 
-export default UserTabAccount
+export default ProfileAccount
