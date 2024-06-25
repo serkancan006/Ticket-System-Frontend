@@ -1,11 +1,19 @@
 import { AxiosInstance } from 'axios'
-import { showNotifyStack } from 'src/services/NotiStackService'
+import { showNotifyStack } from 'src/helpers/NotiStackService'
+import TokenService from './TokenService'
 
 export function httpClientErrorInterceptor(httpClient: AxiosInstance): void {
   // Request interceptor
   httpClient.interceptors.request.use(
     config => {
       // Her isteğin öncesinde yapılacak işlemler (örneğin, header eklemek)
+
+      const token = TokenService.getToken() // Token'i al
+
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}` // Header'a Bearer token ekle
+      }
+
       return config
     },
     error => {
@@ -32,6 +40,8 @@ export function httpClientErrorInterceptor(httpClient: AxiosInstance): void {
         switch (error.response.status) {
           case 400:
             showNotifyStack('Not Found', 'error')
+            console.log(error)
+            console.log(error.response)
             break
           case 401:
             showNotifyStack('Lütfen Giriş Yapın', 'error')

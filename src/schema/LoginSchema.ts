@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
 export const LoginSchema = Yup.object({
-  email: Yup.string().required('Lütfen emailinizi giriniz!').email('geçersiz email adresi!'),
+  username: Yup.string().required('Lütfen kullanıcı adınızı giriniz!'),
   password: Yup.string().required('Lütfen şifrenizi giriniz')
 })

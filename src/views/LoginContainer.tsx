@@ -28,6 +28,12 @@ import FooterIllustrationsV1 from 'src/@core/views/pages/auth/FooterIllustration
 // Formik
 import { useFormik } from 'formik'
 import { LoginSchema } from 'src/schema/LoginSchema'
+import { LoginContract, initialLoginConract } from 'src/contracts/Login'
+import UserAuthService from 'src/services/UserAuthService'
+
+import { useRouter } from 'next/router'
+import { showNotifyStack } from 'src/helpers/NotiStackService'
+import TokenService from 'src/helpers/TokenService'
 
 // ** Styled Components
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
@@ -41,6 +47,8 @@ const LinkStyled = styled('a')(({ theme }) => ({
 }))
 
 const LoginContainer = () => {
+  const router = useRouter()
+
   // ** State
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -48,13 +56,26 @@ const LoginContainer = () => {
   const theme = useTheme()
 
   // ** Formik
-  const onSubmit = (values: any, actions: any) => {
-    alert(JSON.stringify(values, null, 2))
-    actions.resetForm()
+  const onSubmit = async (values: LoginContract, actions: any) => {
+    try {
+      const response = await UserAuthService.LoginAsync(values)
+      if (response.data.status) {
+        TokenService.saveToken(response.data.token)
+        showNotifyStack(response.data.message, 'success')
+        router.push('/')
+      } else {
+        showNotifyStack(response.data.message, 'error')
+      }
+      response.data.status
+    } catch (error) {
+      console.error(error)
+    } finally {
+      actions.resetForm()
+    }
   }
 
   const formik = useFormik({
-    initialValues: { email: '', password: '' },
+    initialValues: initialLoginConract,
     onSubmit,
     validationSchema: LoginSchema
   })
@@ -154,15 +175,15 @@ const LoginContainer = () => {
             </Box>
             <form noValidate autoComplete='off' onSubmit={formik.handleSubmit}>
               <TextField
-                error={formik.touched && formik.errors.email ? true : false}
+                error={formik.touched && formik.errors.username ? true : false}
                 onBlur={formik.handleBlur}
-                helperText={(formik.touched && formik.errors.email) ?? ''}
+                helperText={(formik.touched && formik.errors.username) ?? ''}
                 onChange={formik.handleChange}
-                value={formik.values.email}
+                value={formik.values.username}
                 autoFocus
                 fullWidth
-                id='email'
-                label='Email'
+                id='username'
+                label='kullanıcı adınız'
                 sx={{ marginBottom: 4 }}
               />
               <FormControl fullWidth>

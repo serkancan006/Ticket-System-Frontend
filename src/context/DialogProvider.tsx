@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react'
-import { openDialog, closeDialog, renderDialog } from '../services/DialogService'
+import { openDialog, closeDialog, renderDialog } from '../helpers/DialogService'
 
 interface DialogContextProps {
   openDialog: (component: React.FC<any>, data: any, afterClosed?: (result: any) => void) => void

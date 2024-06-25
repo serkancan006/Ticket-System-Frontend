@@ -18,7 +18,7 @@ const get = <T>(requestParameters: Partial<RequestParameters>): Promise<AxiosRes
   })
 }
 
-const post = <T>(requestParameters: Partial<RequestParameters>, body: Partial<T>): Promise<AxiosResponse<T>> => {
+const post = <T>(requestParameters: Partial<RequestParameters>, body: Partial<any>): Promise<AxiosResponse<T>> => {
   const url = urlBuilder(requestParameters)
 
   return httpClient.post<T>(url, body, {
@@ -67,7 +67,7 @@ const HttpClientService = {
   post,
   postMultipart,
   put,
-  delete: del,
+  delete: del
 }
 
 export default HttpClientService

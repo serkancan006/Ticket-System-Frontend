@@ -29,7 +29,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 
 // ** Global css styles
 import '../../styles/globals.css'
-import NotistackService from 'src/services/NotiStackService'
+import NotistackService from 'src/helpers/NotiStackService'
 import { DialogProvider } from 'src/context/DialogProvider'
 
 // ** Extend App Props with Emotion

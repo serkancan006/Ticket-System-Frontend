@@ -11,22 +11,27 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import { FileAccount } from 'mdi-material-ui'
-import { MuiFileInput } from 'mui-file-input'
+
+//import { FileAccount } from 'mdi-material-ui'
+//import { MuiFileInput } from 'mui-file-input'
 import UserTicketService from 'src/services/UserTicketService'
+import { showNotifyStack } from 'src/helpers/NotiStackService'
 
 const UserSendTicketContainer: React.FC = () => {
   // ** Formik
-  const onSubmit = (values: UserSendTicket, actions: any) => {
-    UserTicketService.userSendTicket(
-      values,
-      () => alert('işlem başarılıdır!'),
-      message => console.log(message)
-    )
-
-    // alert(JSON.stringify(values, null, 2))
-    // console.log(values)
-    actions.resetForm()
+  const onSubmit = async (values: UserSendTicket, actions: any) => {
+    const response = await UserTicketService.userSendTicketAsync(values)
+    if (response.data.status) {
+      showNotifyStack(response.data.message, 'success')
+    } else {
+      showNotifyStack(response.data.message, 'warning')
+    }
+    try {
+    } catch (error) {
+      console.error(error)
+    } finally {
+      actions.resetForm()
+    }
   }
 
   const formik = useFormik({
@@ -69,7 +74,7 @@ const UserSendTicketContainer: React.FC = () => {
                   sx={{ '& .MuiOutlinedInput-root': { alignItems: 'baseline' } }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <MuiFileInput
                   label='Dosya seç'
                   multiple
@@ -86,7 +91,7 @@ const UserSendTicketContainer: React.FC = () => {
                   }}
                   placeholder='Ek ekle'
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <Box
                   sx={{
